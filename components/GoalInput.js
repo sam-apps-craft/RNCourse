@@ -1,17 +1,34 @@
+import { View, TextInput, StyleSheet, Button } from "react-native";
+import { useState } from "react";
 
+function GoalInput(props) {
+  const [enteredGoalText, setEnteredGoalText] = useState("");
 
+  function goalInputHandler(enteredText) {
+    setEnteredGoalText(enteredText);
+  }
 
+  function addGoalHandler() {
+    props.onAddGoal(enteredGoalText);
+    setEnteredGoalText("");
+  }
 
+  return (
+    <View style={styles.inputContainer}>
+      <TextInput
+        style={styles.textInput}
+        placeholder="Your course goal!"
+        onChangeText={goalInputHandler}
+        value={enteredGoalText}
+      />
+      <Button title="Add Goal" onPress={addGoalHandler} />
+    </View>
+  );
+}
 
-
+export default GoalInput;
 
 const styles = StyleSheet.create({
-  appContainer: {
-    flex: 1,
-    paddingTop: 70,
-    paddingHorizontal: 20,
-  },
-
   inputContainer: {
     flex: 1,
     flexDirection: "row",
@@ -29,15 +46,4 @@ const styles = StyleSheet.create({
     marginRight: 5,
     padding: 8,
   },
-
-  goalsContainer: {
-    flex: 6,
-  },
-  goalItem: {
-    margin: 8,
-    padding: 8,
-    borderRadius: 6,
-    backgroundColor: "#5e0acc",
-  },
-  goalText: { color: "white" },
 });
